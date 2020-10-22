@@ -1,18 +1,18 @@
-printMinAndMAx <- function(v){ #v - vector
+print_min_and_max <- function(vector){ 
   
   min <- Inf 
   max <- -Inf
   maxpos <- 1
   minpos <- 1 
   
-  for (i in 1:length(v)) { 
-    if(min >= v[i]){ 
-      min <- v[i] 
+  for (i in 1:length(vector)) { 
+    if(min >= vector[i]){ 
+      min <- vector[i] 
       minpos <- i 
     }
     
-    if(max <= v[i]){ 
-      max <- v[i] 
+    if(max <= vector[i]){ 
+      max <- vector[i] 
       maxpos <- i 
     }
   }
@@ -21,7 +21,7 @@ printMinAndMAx <- function(v){ #v - vector
   cat("max = " , max, ", position = ", maxpos, sep = "")
 }
 
-printMinAndMAx(c(1,2,5,100,10,15,-10,37)) 
+print_min_and_max(c(1,2,5,100,10,15,-10,37)) 
 
 
 
