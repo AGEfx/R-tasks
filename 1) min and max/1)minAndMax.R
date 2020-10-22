@@ -1,19 +1,19 @@
-printMinAndMAx <- function(arr){
+printMinAndMAx <- function(v){ #v - vector
   
-  min = Inf 
-  max = -Inf
-  maxpos = 1
-  minpos = 1 
+  min <- Inf 
+  max <- -Inf
+  maxpos <- 1
+  minpos <- 1 
   
-  for (i in 1:length(arr)) { 
-    if(min >= arr[i]){ 
-      min = arr[i] 
-      minpos = i 
+  for (i in 1:length(v)) { 
+    if(min >= v[i]){ 
+      min <- v[i] 
+      minpos <- i 
     }
     
-    if(max <= arr[i]){ 
-      max = arr[i] 
-      maxpos = i 
+    if(max <= v[i]){ 
+      max <- v[i] 
+      maxpos <- i 
     }
   }
   
