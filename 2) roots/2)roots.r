@@ -1,4 +1,4 @@
-searchRoots <- function(a, b, c){ 
+search_roots <- function(a, b, c){ 
   D <- b*b - 4*a*c
   
   if (D > 0){
@@ -14,6 +14,6 @@ searchRoots <- function(a, b, c){
     return ("There are no roots")
   
 }
-print(searchRoots (1, 2, 1)) #output: -1
-print(searchRoots (1, 5, 4)) #output: -4 -1
-print(searchRoots (1, 2, 3)) #output: "There are no roots"
+print(search_roots (1, 2, 1)) #output: -1
+print(search_roots (1, 5, 4)) #output: -4 -1
+print(search_roots (1, 2, 3)) #output: "There are no roots"
