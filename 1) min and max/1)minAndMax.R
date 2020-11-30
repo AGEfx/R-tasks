@@ -6,12 +6,12 @@ print_min_and_max <- function(vector){
   minpos <- 1 
   
   for (i in 1:length(vector)) { 
-    if(min >= vector[i]){ 
+    if(min > vector[i]){ 
       min <- vector[i] 
       minpos <- i 
     }
     
-    if(max <= vector[i]){ 
+    if(max < vector[i]){ 
       max <- vector[i] 
       maxpos <- i 
     }
