@@ -1,18 +1,17 @@
-#The code outputs first 20 fibonacci numbers
+n <- 10
 
-n <- 20
 
-previous <- -1
-current <- 1
+
 
 fib <- function(n){
-    for(i in 1:n){
-       sum <- current + previous
-       
-       previous <- current
-       current <- sum
-       print(sum)
-    }
+  sum <- 0
+  previous <- -1
+  current <- 1
+  for(i in 1:n){
+    sum <- current + previous
+    previous <- current
+    current <- sum
+  }
+  return(sum)
 }
-fib(n)
-
+print(fib(n)) #output: 34
