@@ -1,57 +1,59 @@
-merge_sort <- function(up, down, left, right){
-  if (left == right)
-  {
-    down[left] <- up[left]
-    return(down)
-  }
-  
-  middle <- (left + right) %/% 2;
-  
+a <- c(-3,0,35,-2,-54,-23,12,52,5,7,9,10)
 
-  l_buff<-merge_sort(up, down, left, middle)
-  r_buff<-merge_sort(up, down, middle + 1, right)
-  
 
-  target <- c()
+
+merge_sort <- function(vector){
   
-  if(!is.na((all(l_buff == up))) && all(l_buff == up)){
-    target <- down
-  } else {
-    target <- up
+  if(length(vector) <= 1){
+    return(vector)
+  }else{
+    middle <- length(vector) %/% 2
+    left <- merge_sort(vector[1:middle])
+    right <- merge_sort(vector[(middle+1):length(vector)])
   }
-   
   
-  l_cur <- left
-  r_cur <- middle + 1
-  for (i in left:right){
-    if (l_cur <= middle && r_cur <= right)
-    {
-      if (l_buff[l_cur] < r_buff[r_cur])
-      {
-        target[i] <- l_buff[l_cur]
-        l_cur <- l_cur + 1
-      }
-      else
-      {
-        target[i] <- r_buff[r_cur]
-        r_cur<- r_cur + 1
-      }
+  res <- c()
+  
+  k <- 1
+  while(length(right) > 0 && length(left) > 0){
+    if(left[1] > right[1]){
+      res[k] <- right[1]
+      right <- right[-1]
+      
+      
+    } 
+    else if(left[1] == right[1]){
+      res[k] <- left[1]
+      k <- k + 1
+      res[k] <- right[1]
+      
+      right <- right[-1]
+      left <- left[-1]
     }
-    else if (l_cur <= middle)
-    {
-      target[i] <- l_buff[l_cur]
-      l_cur <- l_cur + 1
+    
+    else if (left[1] < right[1]){
+      res[k] <- left[1]
+      left <- left[-1]
     }
-    else
-    {
-      target[i] <- r_buff[r_cur]
-      r_cur <- r_cur + 1
+    
+    k <- k + 1
+    
+    
+  }
+  
+  if(length(right) == 0){
+    for(i in 1:length(left)){
+      res[k] <- left[i]
+      k <- k + 1
     }
   }
-  return(target)
+  else{
+    for(i in 1:length(right)){
+      res[k] <- right[i]
+      k <- k + 1
+    }
+  }
+  return(res)
 }
 
-v <- c(3,2,1,0,-1,-2)
-vv <- c()
-
-merge_sort(v,vv,1,length(v))
+print(merge_sort(a))
