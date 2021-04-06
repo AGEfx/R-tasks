@@ -1,7 +1,7 @@
 minn <- function(metki,were){
   min <- Inf
   x <- 1
-  if(is.null(were)){ #åñëè âåêòîğ ïóñòîé
+  if(is.null(were)){ #ĞµÑĞ»Ğ¸ Ğ²ĞµĞºÑ‚Ğ¾Ñ€ Ğ¿ÑƒÑÑ‚Ğ¾Ğ¹
     were[1] <- -1
   }
   for(i in 1:length(metki)){
@@ -34,13 +34,13 @@ a <- matrix(c(0, 5,10,13,0,0,
                 0,0,0,0,0, 9,
                 0,0,0,0,0,0), nrow = 6, ncol = 6, byrow = TRUE) 
 
-begin <- 1 #íà÷àëüíàÿ dthibyf
-end <- 6 #çàäàòü êîíå÷íóş âåğøèíó
+begin <- 1 #Ğ½Ğ°Ñ‡Ğ°Ğ»ÑŒĞ½Ğ°Ñ dthibyf
+end <- 6 #Ğ·Ğ°Ğ´Ğ°Ñ‚ÑŒ ĞºĞ¾Ğ½ĞµÑ‡Ğ½ÑƒÑ Ğ²ĞµÑ€ÑˆĞ¸Ğ½Ñƒ
 
 n <- sqrt(length(a))
 
-metki <- c() #ìåòêè
-were <- c() #âåğøèíû â êîòîğûõ óæå áûëè
+metki <- c() #Ğ¼ĞµÑ‚ĞºĞ¸
+were <- c() #Ğ²ĞµÑ€ÑˆĞ¸Ğ½Ñ‹ Ğ² ĞºĞ¾Ñ‚Ğ¾Ñ€Ñ‹Ñ… ÑƒĞ¶Ğµ Ğ±Ñ‹Ğ»Ğ¸
 
 metki[begin] <- 0
 for(i in 1:n){
@@ -50,7 +50,7 @@ for(i in 1:n){
 }
 
 while(TRUE){
-  current <- minn(metki,were) #òåêóùàÿ âåğøèíà
+  current <- minn(metki,were) #Ñ‚ĞµĞºÑƒÑ‰Ğ°Ñ Ğ²ĞµÑ€ÑˆĞ¸Ğ½Ğ°
   for (i in 1:n) {
     if (a[current, i] != 0) {
       rasst <- metki[current] + a[current, i]
@@ -84,13 +84,13 @@ while(TRUE){
   }
 }
 
-print("Êğàò÷àéøèå ğàññòîÿíèÿ äî âñåõ âåğøèí:")
+print("ĞšÑ€Ğ°Ñ‚Ñ‡Ğ°Ğ¹ÑˆĞ¸Ğµ Ñ€Ğ°ÑÑÑ‚Ğ¾ÑĞ½Ğ¸Ñ Ğ´Ğ¾ Ğ²ÑĞµÑ… Ğ²ĞµÑ€ÑˆĞ¸Ğ½:")
 print(metki)
 
-print("Êğàò÷àéøåå ğàññòîÿíèå äî íåîáõîäèìîé âåğøèíû:")
+print("ĞšÑ€Ğ°Ñ‚Ñ‡Ğ°Ğ¹ÑˆĞµĞµ Ñ€Ğ°ÑÑÑ‚Ğ¾ÑĞ½Ğ¸Ğµ Ğ´Ğ¾ Ğ½ĞµĞ¾Ğ±Ñ…Ğ¾Ğ´Ğ¸Ğ¼Ğ¾Ğ¹ Ğ²ĞµÑ€ÑˆĞ¸Ğ½Ñ‹:")
 print(metki[end])
 
 
-print("Ïóòü:")
+print("ĞŸÑƒÑ‚ÑŒ:")
 print(rev(path))
 
