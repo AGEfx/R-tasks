@@ -6,7 +6,7 @@ print(determinant)
 
 
 det <- function(matrix) {
-  dim <- dim(matrix)[1] #определяем размерность 
+  dim <- dim(matrix)[1] 
   sum <- 0
   if (length(matrix) == 1) {
     sum <- sum + matrix[1]
