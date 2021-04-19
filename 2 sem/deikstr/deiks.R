@@ -14,27 +14,16 @@ minn <- function(metki,were){
 }
 
 
-"aa <- matrix(c(0, 7 ,9 ,0, 0,14,
+a <- matrix(c(0, 7 ,9 ,0, 0,14,
               7, 0 ,10,15,0,0,
               9, 10,0, 11,0,2,
               0, 15,11,0, 6,0,
               0, 0 ,0, 6, 0,9,
-              14,0 ,2, 0, 9,0), nrow = 6, ncol = 6, byrow = TRUE)"
+              14,0 ,2, 0, 9,0), nrow = 6, ncol = 6, byrow = TRUE)
 
 
-"aa <- matrix(c(0,10,3,0,
-              10,0,4,0,
-              3,4,0,11,
-              0,0,11,0), nrow = 4, ncol = 4, byrow = TRUE)"
 
-a <- matrix(c(0, 5,10,13,0,0,
-                0, 0, 8, 9, 13, 0,
-                0,0,0, 5, 3, 6,
-                0, 0, 0, 0, 8, 10,
-                0,0,0,0,0, 9,
-                0,0,0,0,0,0), nrow = 6, ncol = 6, byrow = TRUE) 
-
-begin <- 1 #начальная dthibyf
+begin <- 1 #начальная вершина
 end <- 6 #задать конечную вершину
 
 n <- sqrt(length(a))
@@ -83,6 +72,13 @@ while(TRUE){
     break
   }
 }
+
+format_vertex <- paste("Вершина -", seq(1,n),"\n", "Путь =", metki)
+
+
+graph <- graph.adjacency(a, mode="undirected", weighted=TRUE)
+
+plot(ig, edge.label=round(E(ig)$weight),vertex.label = format_vertex)
 
 print("Кратчайшие расстояния до всех вершин:")
 print(metki)
