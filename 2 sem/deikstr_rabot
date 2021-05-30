@@ -1,0 +1,148 @@
+library(igraph)
+
+#тут находим что-то минимульное, но я не помню что
+minn <- function(metki,were){
+  min <- Inf
+  x <- 1
+  if(is.null(were)){ #если вектор пустой
+    were[1] <- -1
+  }
+
+  for(i in 1:length(metki)){
+    if(metki[i] < min && all(i!=were)){
+      min <- metki[i]
+      x <- i
+    }
+  }
+  return(x)
+}
+
+
+a <- matrix(c(0, 7 ,9 ,0, 0,14,
+              7, 0 ,10,15,0,0,
+              9, 10,0, 11,0,2,
+              0, 15,11,0, 6,0,
+              0, 0 ,0, 6, 0,9,
+              14,0 ,2, 0, 9,0), nrow = 6, ncol = 6, byrow = TRUE)
+
+
+
+begin <- 2 #начальная вершина
+end <- 5 #задать конечную вершину
+
+isGood <- TRUE #флажок, означающий, что начальная вершина меньше конечной 
+
+if(begin > end){ #если меньше меняем местами
+  t <- begin
+  begin <- end
+  end <- t
+  
+  isGood <- FALSE #флажок в фолз
+}
+
+
+n <- sqrt(length(a)) #размерность матрицы
+
+metki <- c() #метки
+were <- c() #вершины в которых уже были
+
+
+
+#расставляем бесконечные метки всем вершинам, кроме первой
+metki[begin] <- 0   
+for(i in 1:n){
+  if(i != begin){
+    metki[i] <- Inf
+  }
+}
+
+#переопределяем метки для всех вершин
+while(TRUE){
+  current <- minn(metki,were) #текущая вершина
+  for (i in 1:n) {
+    if (a[current, i] != 0) {
+      rasst <- metki[current] + a[current, i] #rasst - расстояние
+      if (rasst < metki[i]) {
+        metki[i] <- rasst
+      }
+    }
+  
+  }
+  were <- append(were,current)
+  if(current == end){ #как доходим до конечной вершины, завершаем процесс
+    break
+  }
+}
+
+#исоставляем путь
+path <- c() #массив меток, составляющих путь от начальной до конечно
+while(TRUE){
+  current <- end
+  for (i in n:1) {
+    if(a[i,current] != 0){
+      rasst <- metki[current] - a[i, current]
+      if(metki[i] == rasst){
+        path <- append(path,current) #делаем 2 раза, потому что так надо, чтобы было удобно дальше
+        path <- append(path,current)
+        current <- i
+      }
+    }
+  }
+  if(current == begin){ #если дошли до начальной вершины, заканчиваем алгоритм 
+    path <- append(path, current) #делаем 2 раза, потому что так надо, чтобы было удобно дальше
+    path <- append(path, current)
+    break
+  }
+}
+
+format_vertex <- paste("Вершина -", seq(1,n),"\n", "Путь =", metki) #массив с подписями для вершин
+
+colors <- c(ifelse(seq(1,n) %in% path ,1,5)) #массив цветов для вершин пути(если вершина принадлежит путю, то даём ей цвет 1, иначе цвет 5)
+
+graph <- graph.adjacency(a, mode="undirected", weighted=TRUE) #граф смежности по начальной матрице
+print("HOHOHOOHOH")
+
+edges <- get.edgelist(graph) #матрица смежных друг с другом вершин
+edges
+
+path <- path[-1]
+path <- path[-length(path)]
+path <- rev(path)
+
+paths <- matrix(path,nrow=length(path)/2,ncol=2,byrow=TRUE) #из массива пути делаем матрицу, чтобы потом ее удобно было сравнивать с матрице смежных вершин(нужно для раскрашивания пути)
+paths
+
+edges_colors <- c() #массив цветов для линий
+for(i in 1:nrow(edges)){
+  for(j in 1:nrow(paths)){
+    if(all(paths[j,] == edges[i,]) || all(paths[j,] == rev(edges[i,]))){ #если оба элемента из строки матрицы пути равняются какой-либо строке из матрицы смежных вершин, то в массив под номером этой строки пишем 1
+      edges_colors <- append(edges_colors, 1)
+      break
+    }else{
+      if(j == nrow(paths)){ #если не нашли такую строку, то в вектор пишем 5
+        edges_colors <- append(edges_colors,5)
+        
+      }
+    }
+  }
+}
+edges_colors
+
+#рисуем граф,добавляем веса для линий, надписи для вершин, цвета для вершин и цвета для линий
+plot(graph, edge.label=round(E(graph)$weight),vertex.label = format_vertex, vertex.color = colors, edge.color = edges_colors, edge.width = 6)
+
+
+print("Кратчайшие расстояния до всех вершин:")
+print(metki)
+
+print("Кратчайшее расстояние до необходимой вершины:")
+print(metki[end])
+
+
+print("Путь:")
+if(isGood){  #выводим путь прямым или обратным образом в зависимости от того, начальная вершина меньше или больше конечной
+  print(rev(path))
+  }else{
+  print(path)
+}
+
